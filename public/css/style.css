@@ -1,0 +1,220 @@
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/Inter-Regular.woff2") format("woff2"); }
+
+/* Geral Style */
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: #f7f7f7;
+    color: #070f0f;
+    font-family: Inter, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.618em;
+}
+
+h2 {
+    font-size: 1.618em;
+    font-weight: normal;
+    margin: 0;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: #7f7f7f;
+}
+
+.error {
+    color: #aa5555;
+}
+
+.success {
+    color: #55aa55;
+}
+
+input, textarea {
+    font-family: Inter, sans-serif;
+    font-size: 1em;
+}
+
+::placeholder {
+    color: #070f0f55;
+}
+
+/* Header Style */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #bfbfbf;
+}
+
+.navbar {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.navbar a {
+    color: inherit;
+    padding: 0 16px;
+    transition: 0.25s;
+}
+
+.navbar a:hover {
+    text-shadow: 0 0 2px #070f0f55;
+}
+
+#userMenu {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+#userMenu img {
+    border-radius: 50%;
+}
+
+#userMenu span {
+    padding-right: 16px;
+}
+
+#options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 8px;
+    background: #fff;
+    color: #2f2727;
+    box-shadow: 0 2px 6px #0000002f;
+    border-radius: 6px;
+    min-width: 160px;
+    overflow: hidden;
+    z-index: 999;
+}
+
+#options a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: inherit;
+    transition: 0.25s;
+}
+
+#options a:hover {
+    text-shadow: 0 2px 2px #0000002f;
+}
+
+#authMenu a {
+    text-align: center;
+    display: block;
+    border-radius: 25px;
+    padding: 8px 16px;
+    transition: 0.25s;
+}
+
+#authMenu #signup {
+    color: #f7f7f7;
+    background-color: #070f0f;
+    border: 1px solid #070f0f;
+}
+
+#authMenu #signup:hover {
+    box-shadow: 0 0 4px #070f0faa;
+    text-shadow: 0 0 4px #f7f7f7aa;
+}
+
+#authMenu #login {
+    color: #070f0f;
+    background-color: #f7f7f7;
+    border: 1px solid #070f0f;
+    margin-top: 8px;
+}
+
+#authMenu #login:hover {
+    box-shadow: 0 0 4px #070f0f55;
+    text-shadow: 0 0 4px #070f0f55;
+}
+
+/* Footer Style */
+
+footer {
+    width: 100%;
+    padding: 6px 0;
+    text-align: center;
+}
+
+/* Dashboard Style */
+
+.dashboard {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 16px 0;
+}
+
+.create {
+    width: 30%;
+}
+
+.create form {
+    text-align: left;
+}
+
+.create input, .create textarea {
+    width: 100%;
+    padding: 4px;
+    margin-bottom: 24px;
+    border-radius: 4px;
+    border: 1px solid #070f0f;
+}
+
+.create input:last-child {
+    margin-bottom: 0;
+    width: 50%;
+    display: block;
+    margin: 0 auto;
+}
+
+.sales {
+    width: 60%;
+    border: 1px solid #bfbfbf;
+}
+
+/* Ebook Style */
+
+.ebook {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 16px 0;
+}
+
+.cover {
+    width: 30%;
+}
+
+.cover img {
+    width: 100%;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px #0000002f;
+}
+
+.info {
+    width: 50%;
+    word-wrap: break-word;
+}
