@@ -56,26 +56,39 @@ class Helpers
         $allowed_extensions = ['jpg', 'jpeg', 'png', 'webp'];
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
         if (!in_array(strtolower($extension), $allowed_extensions)) {
+            http_response_code(400);
             echo $error_msg;
             return;
         }
 
         if ($label === 'avatar') {
-            $path = __DIR__ . '/../uploads/avatar/' . $filename;
+            $base_dir = realpath(__DIR__ . '/../uploads/avatar');
         } elseif ($label === 'cover') {
-            $path = __DIR__ . '/../uploads/cover/' . $filename;
+            $base_dir = realpath(__DIR__ . '/../uploads/cover');
         } else {
+            http_response_code(400);
             echo $error_msg;
             return;
         }
 
-        if (!file_exists($path)) {
+        $path = realpath($base_dir . '/' . $filename);
+        if (!$path || strpos($path, $base_dir) !== 0 || !file_exists($path)) {
+            http_response_code(404);
             echo $error_msg;
             return;
         }
 
         $mime_type = mime_content_type($path);
+        $valid_mime_types = ['image/jpeg', 'image/png', 'image/webp'];
+
+        if (!in_array($mime_type, $valid_mime_types)) {
+            http_response_code(400);
+            echo $error_msg;
+            return;
+        }
+
         header('Content-Type: ' . $mime_type);
+        header('Cache-Control: public, max-age=3600');
         readfile($path);
     }
 }
