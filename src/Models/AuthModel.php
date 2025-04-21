@@ -122,6 +122,7 @@ class AuthModel extends Model
         return password_verify($password, $password_hash);
     }
 
+    // Validate the login form and start a session if the credentials are correct.
     public function login($email_or_username, $password, $remember)
     {
         if (!$email_or_username || !$password)
@@ -165,6 +166,7 @@ class AuthModel extends Model
         return['error' => 'Invalid credentials.'];
     }
 
+    // Validate the signup form and save the user in the database.
     public function signup($name, $username, $email, $password, $confirm_password, $agree)
     {
         if (!$name || !$username || !$email || !$password || !$confirm_password || !$agree) {
@@ -219,6 +221,7 @@ class AuthModel extends Model
         }
     }
 
+    // End the session.
     public function logout()
     {
         session_destroy();

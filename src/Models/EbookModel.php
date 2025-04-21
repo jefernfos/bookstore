@@ -8,6 +8,7 @@ use PDO;
 
 class EbookModel extends Model
 {
+    // Add a new ebook to the database.
     public function addEbookDB($slug, $title, $subtitle, $author, $publisher, $price, $pages, $year, $language, $description, $file_name, $file_size, $file_path, $cover_path){
         $stmt = $this->db->prepare("INSERT INTO ebooks (slug, title, subtitle, author, publisher, price, pages, year, language, description, file_name, file_size, file_path, cover_path)
         VALUES (:slug, :title, :subtitle, :author, :publisher, :price, :pages, :year, :language, :description, :file_name, :file_size, :file_path, :cover_path)");
@@ -28,6 +29,7 @@ class EbookModel extends Model
         $stmt->execute();
     }
 
+    // Search for ebook in the database using slug.
     public function getEbook($slug)
     {
         $stmt = $this->db->prepare("SELECT * FROM ebooks WHERE slug = :slug LIMIT 1");
@@ -39,6 +41,7 @@ class EbookModel extends Model
         return $ebook ?? null;
     }
 
+    // Get all ebooks from the database.
     public function getAllEbooks()
     {
         $stmt = $this->db->prepare("SELECT * FROM ebooks");
@@ -49,71 +52,83 @@ class EbookModel extends Model
         return $ebooks ?? null;
     }
 
+    // Check if the input is 3 to 100 characters long and contains only lowercase letters, numbers, and hyphens (kebab-case).
     public function isValidSlug($slug)
     {
         $regex = '/^(?=.{3,100}$)[a-z0-9]+(?:-[a-z0-9]+)*$/';
         return preg_match($regex, $slug);
     }
 
+    // Check if the slug is already in use.
     public function isSlugAlreadyInUse($slug)
     {
         return (bool) $this->getEbook($slug);
     }
 
+    // Check if the input is 3 to 100 characters long and contains only letters (from any language), numbers, and spaces.
     public function isValidTitle($title)
     {
         $regex = '/^[\p{L}\p{N}\s]{3,100}$/u';
         return preg_match($regex, $title);
     }
 
+    // Check if the input is 3 to 100 characters long and contains only letters (from any language), numbers, and spaces.
     public function isValidSubtitle($subtitle)
     {
         $regex = '/^[\p{L}\p{N}\s]{3,100}$/u';
         return preg_match($regex, $subtitle);
     }
 
+    // Check if the input is a number between 0.00 and 99999999.99.
     public function isValidPrice($price)
     {
         $regex = '/^\d{1,8}(\.\d{1,2})?$/';
         return preg_match($regex, $price) && $price >= 0 && $price <= 99999999.99;
     }
 
+    // Check if the input is 3 to 100 characters long and contains only letters (from any language) and spaces.
     public function isValidAuthor($author)
     {
         $regex = '/^[\p{L}\s]{3,100}$/u';
         return preg_match($regex, $author);
     }
 
+    // Check if the input is 3 to 100 characters long and contains only letters (from any language) and spaces.
     public function isValidPublisher($publisher)
     {
         $regex = '/^[\p{L}\s]{3,100}$/u';
         return preg_match($regex, $publisher);
     }
 
+    // Check if the input is a number between 1 and 9999.
     public function isValidYear($year)
     {
         $regex = '/^\d{4}$/';
         return preg_match($regex, $year) && $year >= 1 && $year <= date('Y');
     }
 
+    // Check if the input is a number between 1 and 9999.
     public function isValidPages($pages)
     {
         $regex = '/^\d{1,4}$/';
         return preg_match($regex, $pages) && $pages >= 1 && $pages <= 9999;
     }
 
+    // Check if the input is 2 to 30 characters long and contains only letters (from any language), spaces hyphens, and parentheses.
     public function isValidLanguage($language)
     {
-        $regex = '/^[\p{L}\s]{2,30}$/u';
+        $regex = '/^[\p{L}\s\-\(\)]{2,30}$/u';
         return preg_match($regex, $language);
     }
 
+    // Check if the input is 100 to 9999 characters long and contains letters (from any language), numbers, punctuation, and spaces.
     public function isValidDescription($description)
     {
         $regex = '/^[\p{L}\p{N}\p{P}\p{S}\s\r\n]{100,9999}$/us';
         return preg_match($regex, $description);
     }
 
+    // Check if the input is a valid ebook file (pdf, epub, mobi) and less than 150MB.
     public function isValidFile($file)
     {
         if ($file['error'] !== UPLOAD_ERR_OK) {
@@ -145,6 +160,7 @@ class EbookModel extends Model
         return true;
     }
 
+    // Check if the input is a valid image (jpg, jpeg, png, webp) and less than 5MB.
     public function isValidCover($cover)
     {
         if ($cover['error'] !== UPLOAD_ERR_OK) {
@@ -181,6 +197,7 @@ class EbookModel extends Model
         return true;
     }
 
+    // Upload the ebook and cover image to the server and save the ebook information in the database.
     public function create($ebook)
     {
         if (!$ebook['slug'] || !$ebook['title'] || !$ebook['author'] || !$ebook['price'] || !$ebook['pages'] || !$ebook['year'] || !$ebook['language'] || !$ebook['description'] || !$ebook['file'] || !$ebook['cover'])
@@ -225,7 +242,7 @@ class EbookModel extends Model
         }    
 
         if (!$this->isValidLanguage($ebook['language'])) {
-            return ['error' => 'The language must be between 2 and 30 characters long and can only contain letters and spaces.'];
+            return ['error' => 'The language must be between 2 and 30 characters long and can only contain letters, spaces, hyphens, and parentheses.'];
         }
 
         if (!$this->isValidDescription($ebook['description'])) {
