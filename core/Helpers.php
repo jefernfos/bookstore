@@ -46,4 +46,36 @@ class Helpers
         global $container;
         return self::isLoggedIn() && $container->get(\App\Models\AuthModel::class)->searchUser(self::user_id())['type'] === 'admin';
     }
+
+    public static function getImage($label, $filename)
+    {
+        $error_msg = 'Invalid image request.';
+
+        $filename = basename(urldecode($filename));
+
+        $allowed_extensions = ['jpg', 'jpeg', 'png', 'webp'];
+        $extension = pathinfo($filename, PATHINFO_EXTENSION);
+        if (!in_array(strtolower($extension), $allowed_extensions)) {
+            echo $error_msg;
+            return;
+        }
+
+        if ($label === 'avatar') {
+            $path = __DIR__ . '/../uploads/avatar/' . $filename;
+        } elseif ($label === 'cover') {
+            $path = __DIR__ . '/../uploads/cover/' . $filename;
+        } else {
+            echo $error_msg;
+            return;
+        }
+
+        if (!file_exists($path)) {
+            echo $error_msg;
+            return;
+        }
+
+        $mime_type = mime_content_type($path);
+        header('Content-Type: ' . $mime_type);
+        readfile($path);
+    }
 }

@@ -1,5 +1,7 @@
 <?php
 
+use Core\Helpers;
+
 use App\Controllers\{
     HomeController,
     EbooksController,
@@ -33,15 +35,13 @@ $router->add('GET', '/terms', [TermsController::class, 'index']);
 $router->add('GET', '/404', [NotFoundController::class, 'index']);
 
 $router->add('GET', '/cover/{filename}', function ($args) {
-    $filename = urldecode($args['filename']);
-    $cover = __DIR__ . '/../uploads/cover/' . $filename;
+    $label = 'cover';
+    $filename = $args['filename'];
+    Helpers::getImage($label, $filename);
+});
 
-    if (file_exists($cover)) {
-        $mime_type = mime_content_type($cover);
-        header('Content-Type: ' . $mime_type);
-        readfile($cover);
-        exit;
-    }
-
-    header('Location: /404');
+$router->add('GET', '/avatar/{filename}', function ($args) {
+    $label = 'avatar';
+    $filename = $args['filename'];
+    Helpers::getImage($label, $filename);
 });
