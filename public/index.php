@@ -4,12 +4,14 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use Core\{
     Router,
-    Container
+    Container,
+    Helpers
 };
 
 session_start();
 
 try {
+    Helpers::loadEnv(__DIR__ . '/../.env');
     $container = new Container();
     $router = new Router($container);
     require_once __DIR__ . '/../routes/web.php';
