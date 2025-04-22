@@ -1,5 +1,10 @@
 # bookstore
 
+![Home](/examples/home.png)
+![Sign Up](/examples/signup.png)
+![Dashboard 1](/examples/dashboard_1.png)
+![Dashboard 2](/examples/dashboard_2.png)
+
 ## Features
 | Feature                | Status      | Description                                                              |
 |------------------------|-------------|--------------------------------------------------------------------------|
