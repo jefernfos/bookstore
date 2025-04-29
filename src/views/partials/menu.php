@@ -4,8 +4,8 @@ use Core\Helpers;
 
 if (Helpers::isLoggedIn()): ?>
 <div id="userMenu" onclick="toggleDropdown()">
-    <span><?= htmlspecialchars(Helpers::name()) ?></span>
-    <img src="<?= htmlspecialchars(Helpers::avatar()) ?>" height="48">
+    <span><?= $html(Helpers::name()) ?></span>
+    <img src="<?= $html(Helpers::avatar()) ?>" height="48">
     <div id="options">
         <?php if (Helpers::isAdmin()): ?>
         <a href="/dashboard" data-internal>Dashboard</a>

@@ -6,7 +6,7 @@
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">    
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/main.js"></script>
-    <title><?= isset($title) ? htmlspecialchars($title) : htmlspecialchars('Essential Reads') ?></title>
+    <title><?= isset($title) ? $html($title) : $html('Essential Reads') ?></title>
 </head>
 <body>
     <header>

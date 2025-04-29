@@ -1,18 +1,18 @@
 <h1>Sign Up</h1>
 
 <?php if (isset($error)): ?>
-<p class="error"><?= htmlspecialchars($error) ?></p>
+<p class="error"><?= $html($error) ?></p>
 <?php endif; ?>
 
 <form method="post" action="/signup">
     <label for="name">Full Name:</label><br>
-    <input id="name" type="text" name="name" value="<?= htmlspecialchars($name ?? null) ?>" required><br><br>
+    <input id="name" type="text" name="name" value="<?= $html($name ?? null) ?>" required><br><br>
     
     <label for="username">Username:</label><br>
-    <input id="username" type="text" name="username" value="<?= htmlspecialchars($username ?? null) ?>" required><br><br>
+    <input id="username" type="text" name="username" value="<?= $html($username ?? null) ?>" required><br><br>
     
     <label for="email">Email:</label><br>
-    <input id="email" type="email" name="email" value="<?= htmlspecialchars($email ?? null) ?>" required><br><br>
+    <input id="email" type="email" name="email" value="<?= $html($email ?? null) ?>" required><br><br>
     
     <label for="password">Password:</label><br>
     <input id="password" type="password" name="password" required><br><br>
